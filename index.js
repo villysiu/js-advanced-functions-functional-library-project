@@ -71,15 +71,20 @@ let myLast = (collection, count=1) => {
     return  (count === 1) ?  collection[collection.length-1]  : collection.slice(count*-1)
 }
 let myFlatten = (collection, depth="infinity" , newArr=[]) => {
-    //[1, [2, 3], [[4, 5], 6, [7, [8, 9]]]]
+    // method 1
     // newArr =  depth ?  newArr = collection.flat() : collection.flat(Infinity)
-       
+     
+    //method 2
         collection.forEach(x=> {
             (Array.isArray(x) && !!depth) ? 
-                depth==true ? newArr.push(...myFlatten(x, false)) : newArr.push(...myFlatten(x))
+                // depth==true ? newArr.push(...myFlatten(x, false)) : newArr.push(...myFlatten(x))
+                depth==true ? myFlatten(x, false , newArr) : myFlatten(x, "infinity" , newArr)
                 :           
                 newArr.push(x)    
         })
+    //[1, [2, 3], [[4, 5], 6, [7, [8, 9]]]]
+
+       
         
    
         console.log(newArr)
